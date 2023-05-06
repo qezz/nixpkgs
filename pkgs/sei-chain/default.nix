@@ -12,5 +12,16 @@ pkgs.buildGoModule rec {
 
   vendorSha256 = "sha256-nhKz1nI5+0wdvwDloewcWvLNTc8HcloQPsN0ZOuPp2A=";
 
+  buildInputs = [ pkgs.gcc pkgs.git ];
+
+  subPackages = [ "cmd/seid" ];
+
+  ldflags = [ "-s" "-w" ];
+ # buildPhase = ''
+ #    runHook preBuild
+ #    make build
+ #    runHook postBuild
+ #  '';
+
   doCheck = false;
 }
