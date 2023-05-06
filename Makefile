@@ -1,3 +1,5 @@
 list:
-	export NIXPKGS=${PWD}
-	nix-env -f ${NIXPKGS} -qaP '*' | cat
+	nix-env -f ${PWD} -qaP '*' | cat
+
+%:
+	nix-build --show-trace ${PWD} -A $@

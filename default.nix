@@ -1,12 +1,22 @@
-{ pkgs ? import <nixpkgs> { } }:
-
-with pkgs;
-
 let
-  packages = rec {
-    sei-chain = callPackage ./pkgs/sei-chain { };
-    cosmos-gaia = callPackage ./pkgs/cosmos-gaia { };
+  inherit
+    (builtins)
+    currentSystem
+    fromJSON
+    readFile
+    ;
 
-    inherit pkgs;
-  };
-in packages
+  getFlake = name:
+    with (fromJSON (readFile ./flake.lock)).nodes.${name}.locked; {
+      inherit rev;
+      outPath = fetchTarball {
+        url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
+        sha256 = narHash;
+      };
+    };
+in
+  {
+    system ? currentSystem,
+    pkgs ? import (getFlake "nixpkgs") {localSystem = {inherit system;};},
+  }:
+    {} // import ./pkgs {inherit pkgs;}
