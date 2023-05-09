@@ -5,7 +5,7 @@ let
   binary = "${chain}d";
   version = "v15.1.0";
 in let
-  definition = rec {
+  def = rec {
     pname = "${binary}";
     inherit version;
 
@@ -41,14 +41,14 @@ in let
     };
   };
 
-  base = buildGoModule definition;
+  base = buildGoModule def;
 
-  wrapped = (definition // {
-    nativeBuildInputs = [ makeWrapper ];
-    postInstall = ''
-      wrapProgram $out/bin/${binary} \
-        --prefix LD_LIBRARY_PATH : ${base.go-modules}/github.com/CosmWasm/wasmvm/internal/api
+  patched = (def // {
+    nativeBuildInputs = [ autoPatchelfHook ];
+
+    preBuild = ''
+      addAutoPatchelfSearchPath ${base.go-modules}/
     '';
   });
 
-in buildGoModule wrapped
+in buildGoModule patched

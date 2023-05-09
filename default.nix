@@ -19,4 +19,7 @@ in
     system ? currentSystem,
     pkgs ? import (getFlake "nixpkgs") {localSystem = {inherit system;};},
   }:
+  # let
+  #   wasmvm = "";
+  # in
     {} // import ./pkgs {inherit pkgs;}
