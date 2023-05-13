@@ -3,8 +3,9 @@
 }: let
   callPackage = pkg: pkgs.callPackage pkg;
 in {
-  sei-chain = callPackage ./sei-chain {};
   cosmos-gaia = callPackage ./cosmos-gaia {};
-  osmosis = callPackage ./osmosis {};
   cosmwasm-wasmvm = callPackage ./cosmwasm-wasmvm {};
+  neutron = callPackage ./neutron {};
+  osmosis = callPackage ./osmosis {};
+  sei-chain = callPackage ./sei-chain {};
 }

@@ -1,17 +1,18 @@
-{ stdenv, buildGoModule, makeWrapper, autoPatchelfHook, lib, gcc, git }:
+{ stdenv, buildGo119Module, makeWrapper, autoPatchelfHook, lib, gcc, git }:
 
 let
   srcRepo = "sei-protocol/sei-chain";
-  commit = "b3f7928d359e0f81f19cd6b1a45a655db7ee98b8";
+  commit = "d6a3e606c7d3159e489d3499989f571cceca5fb6";
   sdkRepo = "cosmos/cosmos-sdk";
   chain = "sei";
   binary = "${chain}d";
-  vendorSha256 = "sha256-nhKz1nI5+0wdvwDloewcWvLNTc8HcloQPsN0ZOuPp2A=";
-
+  vendorSha256 = "sha256-x9VlCVors9GYofw3W0Am/TfcE53ZZCfD4d/DPAgZzH8=";
+  version = "2.0.48beta";
+  meta = { name = "Sei Chain"; };
+  buildGoModule = buildGo119Module;
 in let
   def = rec {
     pname = "sei-chain";
-    version = "2.0.47beta";
 
     src = fetchGit {
       url = "https://github.com/${srcRepo}.git";
@@ -19,11 +20,16 @@ in let
       rev = "${commit}";
     };
 
-    inherit vendorSha256;
+    inherit version vendorSha256;
 
     subPackages = [ "cmd/${binary}" ];
 
     doCheck = false;
+
+    # We don't check the tmpdir in the first stage because it usually
+    # needs to build some shared libraries. We get these shared
+    # libraries from the output of the first stage.
+    # The missing libraries should be caught by autoPatchelf.
     noAuditTmpdir = true;
 
     ldflags = [
@@ -35,9 +41,9 @@ in let
     ];
 
     meta = with lib; {
-      description = "Sei Chain";
-      homepage = "https://github.com/sei-protocol/sei-chain.git";
-      mainProgram = "seid";
+      description = meta.name;
+      homepage = "https://github.com/${srcRepo}.git";
+      mainProgram = binary;
     };
   };
 

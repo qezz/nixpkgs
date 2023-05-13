@@ -1,18 +1,19 @@
-{ stdenv, buildGoModule, makeWrapper, autoPatchelfHook, lib, gcc, git }:
+{ stdenv, buildGo120Module, makeWrapper, autoPatchelfHook, lib, gcc, git }:
 
 let
-  srcRepo = "osmosis-labs/osmosis";
-  commit = "2baf3afd80b1ddf014a0da611e9ee05625c0ec94";
+  name = "neutron";
+  srcRepo = "neutron-org/neutron";
+  version = "v1.0.1";
+  commit = "c236f1045f866c341ec26f5c409c04d201a19cde";
+  vendorSha256 = "sha256-mFv9VgCAdIyHuZhdsjQbjfQacQbfIhbWhmVNP8+EjKA=";
   sdkRepo = "cosmos/cosmos-sdk";
-  chain = "osmosis";
+  chain = "neutron";
   binary = "${chain}d";
-  vendorSha256 = "sha256-yiCh0RugRFIrSH25CsdSjUGWh7WswKZcyCxY2PwPOzM=";
-  version = "v15.1.0";
-  meta = { name = "Osmosis"; };
-  # buildGoModule = buildGo119Module;
+  meta = { name = "Neutron Consumer Chain"; };
+  buildGoModule = buildGo120Module;
 in let
   def = rec {
-    pname = "sei-chain";
+    pname = name;
 
     src = fetchGit {
       url = "https://github.com/${srcRepo}.git";
@@ -25,7 +26,6 @@ in let
     subPackages = [ "cmd/${binary}" ];
 
     doCheck = false;
-    GOWORK = "off"; # disable go workspace mod
 
     # We don't check the tmpdir in the first stage because it usually
     # needs to build some shared libraries. We get these shared
@@ -38,7 +38,7 @@ in let
       "-X github.com/${sdkRepo}/version.ServerName=${chain}d"
       "-X github.com/${sdkRepo}/version.Version=${version}"
       "-X github.com/${sdkRepo}/version.Commit=${src.rev}"
-      # "-X 'github.com/${sdkRepo}/version.BuildTags=netgo ledger,'"
+      "-X 'github.com/${sdkRepo}/version.BuildTags=netgo ledger,'"
     ];
 
     meta = with lib; {
