@@ -61,4 +61,15 @@ in rec {
       meta = { name = "Mars Chain"; };
       vendorSha256 = "sha256-tzxK228nBtBHdoVbdsf/3z96F8UymPdmnZExeZzq4PA=";
     };
+
+  juno = with pkgs;
+    cosmos.build {
+      inherit autoPatchelfHook buildGoModule;
+
+      srcRepo = "CosmosContracts/juno";
+      chain = "juno";
+      version = "v17.0.0";
+      meta = { name = "Juno Chain"; };
+      vendorSha256 = "sha256-r3osfxZ8jfpUSfBTHrElVTiOr330svQi+E+s/eoxNRE=";
+    };
 }
