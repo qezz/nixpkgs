@@ -59,7 +59,7 @@
         nativeBuildInputs = [ autoPatchelfHook ];
 
         preBuild = ''
-          addAutoPatchelfSearchPath ${base.go-modules}/
+          addAutoPatchelfSearchPath ${base.goModules}/
         '';
       });
 
