@@ -40,6 +40,20 @@ in rec {
       vendorSha256 = "sha256-tdkyV7cPWI20Z0nnR+3uKboAY5q/Lkg39VlKUr2l2Pc=";
     };
 
+  sei-chain-image = let
+    meta = sei-chain.meta;
+  in let
+    image = pkgs.dockerTools.buildLayeredImage {
+      name = "sei-chain";
+      tag = "v3.1.1";
+      config = {
+        # Cmd = [ "/bin/${binName}" ];
+        Env = [ "PATH=/bin" ];
+      };
+      contents = [ pkgs.bash pkgs.busybox pkgs.cacert sei-chain ];
+    };
+  in image // { meta = meta // image.meta; };
+
   neutron = with pkgs;
     cosmos.build {
       inherit autoPatchelfHook buildGoModule;
