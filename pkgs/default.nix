@@ -27,6 +27,20 @@ in rec {
       vendorSha256 = "sha256-r3osfxZ8jfpUSfBTHrElVTiOr330svQi+E+s/eoxNRE=";
     };
 
+  kava = with pkgs;
+    cosmos.build {
+      inherit autoPatchelfHook buildGoModule;
+
+      srcRepo = "kava-labs/kava";
+      chain = "kava";
+      binary = "kava";
+      version = "v0.24.0";
+      meta = { name = "Kava"; };
+      vendorSha256 = "sha256-emfj6KUwCDRACGASyyoKPthBF88jhUKHAGpGqzRpYq8=";
+
+      disableGoWorkspace = true;
+    };
+
   mars = with pkgs;
     cosmos.build {
       inherit autoPatchelfHook buildGoModule;
