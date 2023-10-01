@@ -12,6 +12,18 @@ sei-chain        sei-v3.1.1
 cosmwasm-wasmvm  wasmvm-v1.2.3
 ```
 
+## Build
+
+```
+$ make <package-name>
+```
+
+or
+
+```
+$ nix-build --show-trace $(pwd) -A <package-name>
+```
+
 ## Package
 
 Example definition:
