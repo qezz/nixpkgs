@@ -72,4 +72,16 @@ in rec {
       meta = { name = "Juno Chain"; };
       vendorSha256 = "sha256-r3osfxZ8jfpUSfBTHrElVTiOr330svQi+E+s/eoxNRE=";
     };
+
+  persistence = with pkgs;
+    cosmos.build {
+      inherit autoPatchelfHook buildGoModule;
+
+      srcRepo = "persistenceOne/persistenceCore";
+      chain = "persistence";
+      binary = "persistenceCore";
+      version = "v9.2.1";
+      meta = { name = "Persistence Chain"; };
+      vendorSha256 = "sha256-uMFdzS1ldf7tRajR1kHZHJOA0n/mmySoFVxd3PSiQHE=";
+    };
 }
