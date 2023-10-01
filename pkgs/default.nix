@@ -51,4 +51,14 @@ in rec {
       vendorSha256 = "sha256-jlzFYx09U7BkBg9LDZqfwT4aASQSbuVBl0a/WCrly8A=";
     };
 
+  mars = with pkgs;
+    cosmos.build {
+      inherit autoPatchelfHook buildGoModule;
+
+      srcRepo = "mars-protocol/hub";
+      chain = "mars";
+      version = "v1.0.2";
+      meta = { name = "Mars Chain"; };
+      vendorSha256 = "sha256-tzxK228nBtBHdoVbdsf/3z96F8UymPdmnZExeZzq4PA=";
+    };
 }
