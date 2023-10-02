@@ -98,4 +98,15 @@ in rec {
       meta = { name = "Sei Chain"; };
       vendorSha256 = "sha256-tdkyV7cPWI20Z0nnR+3uKboAY5q/Lkg39VlKUr2l2Pc=";
     };
+
+  sei-pebble = with pkgs;
+    cosmos.buildWithPebble {
+      inherit autoPatchelfHook buildGoModule;
+
+      srcRepo = "sei-protocol/sei-chain";
+      chain = "sei";
+      version = "v3.1.1";
+      meta = { name = "Sei Chain"; };
+      # vendorSha256 = "sha256-4orx2JGB0W4KAAnLJMRsncEdcH+n5eOn4T+6TuM3on0=";
+    };
 }
