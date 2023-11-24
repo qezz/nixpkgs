@@ -105,9 +105,9 @@ in rec {
 
       srcRepo = "sei-protocol/sei-chain";
       chain = "sei";
-      version = "v3.1.1";
+      version = "v3.3.0";
       meta = { name = "Sei Chain"; };
-      vendorSha256 = "sha256-tdkyV7cPWI20Z0nnR+3uKboAY5q/Lkg39VlKUr2l2Pc=";
+      vendorSha256 = "sha256-LrDi/rwLUUSjUTPUFokXe6pb3rBTHL2So1Eo0m64I00=";
     };
 
   sei-pebble = with pkgs;
@@ -116,8 +116,9 @@ in rec {
 
       srcRepo = "sei-protocol/sei-chain";
       chain = "sei";
-      version = "v3.1.1";
+      version = "v3.3.0";
       meta = { name = "Sei Chain"; };
-      # vendorSha256 = "sha256-4orx2JGB0W4KAAnLJMRsncEdcH+n5eOn4T+6TuM3on0=";
+      vendorHash1 = "sha256-LrDi/rwLUUSjUTPUFokXe6pb3rBTHL2So1Eo0m64I00=";
+      vendorHash2 = "sha256-3gebktncaqYQ2yHunB1Br7PhvGzodYRo2aaRxZGslAY=";
     };
 }
