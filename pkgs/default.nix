@@ -16,6 +16,17 @@ in rec {
       vendorSha256 = "sha256-6MDvoxuSMLvwguh/4PdS9K5Mdlr8c1fZDzP5asDYPDk=";
     };
 
+  evmos = with pkgs;
+    cosmos.build {
+      inherit autoPatchelfHook buildGoModule;
+
+      srcRepo = "tharsis/evmos";
+      chain = "evmos";
+      version = "v14.1.0";
+      meta = { name = "Evmos Chain"; };
+      vendorSha256 = "sha256-ftZh8uSQX5I2du96e2MnocbYHgtE5M0KD75jV6siJRo=";
+    };
+
   juno = with pkgs;
     cosmos.build {
       inherit autoPatchelfHook buildGoModule;
