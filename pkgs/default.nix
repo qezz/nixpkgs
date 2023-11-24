@@ -2,6 +2,7 @@
 let callPackage = pkg: pkgs.callPackage pkg;
 in rec {
   cosmos = callPackage ./cosmos { };
+  cosmos2 = callPackage ./cosmos-2 { };
 
   cosmwasm-wasmvm = callPackage ./cosmwasm-wasmvm { };
 
@@ -120,5 +121,15 @@ in rec {
       meta = { name = "Sei Chain"; };
       vendorHash1 = "sha256-LrDi/rwLUUSjUTPUFokXe6pb3rBTHL2So1Eo0m64I00=";
       vendorHash2 = "sha256-3gebktncaqYQ2yHunB1Br7PhvGzodYRo2aaRxZGslAY=";
+    };
+
+  sei-pebble-v2 = with pkgs;
+    cosmos2.buildWithPebble {
+      inherit autoPatchelfHook buildGoModule;
+
+      srcRepo = "sei-protocol/sei-chain";
+      chain = "sei";
+      version = "v3.3.0";
+      meta = { name = "Sei Chain"; };
     };
 }
