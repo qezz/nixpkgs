@@ -4,6 +4,7 @@ in rec {
   cosmos = callPackage ./cosmos { };
 
   cosmwasm-wasmvm = callPackage ./cosmwasm-wasmvm { };
+  oasis = callPackage ./build-support/oasis { };
 
   cosmos-gaia = with pkgs;
     cosmos.build {
@@ -120,5 +121,16 @@ in rec {
       meta = { name = "Sei Chain"; };
       vendorHash1 = "sha256-LrDi/rwLUUSjUTPUFokXe6pb3rBTHL2So1Eo0m64I00=";
       vendorHash2 = "sha256-3gebktncaqYQ2yHunB1Br7PhvGzodYRo2aaRxZGslAY=";
+    };
+
+  oasis-node = with pkgs;
+    oasis.build {
+      inherit autoPatchelfHook pkg-config libseccomp;
+
+      buildGoModule = pkgs.buildGo121Module;
+      srcRepo = "oasisprotocol/oasis-core";
+      version = "v23.0.5";
+      meta = { name = "Oasis Node"; };
+      vendorHash = "sha256-3vXoqSgkG7YKO9C0FQuurRlI6KwH1COZdoKp8cDUMn0=";
     };
 }
