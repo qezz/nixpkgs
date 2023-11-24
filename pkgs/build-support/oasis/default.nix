@@ -3,6 +3,8 @@
   build = { autoPatchelfHook, buildGoModule, pkg-config, libseccomp, srcRepo
     , commit ? null, vendorHash ? lib.fakeHash, version, meta }:
     let
+      xmeta = meta;
+
       def = rec {
         pname = "oasis";
         binary = "oasis-node";
@@ -40,7 +42,7 @@
         buildInputs = [ libseccomp ];
 
         meta = with lib; {
-          description = meta.name;
+          description = xmeta.name;
           homepage = "https://github.com/${srcRepo}.git";
           mainProgram = binary;
         };

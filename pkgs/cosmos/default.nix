@@ -5,6 +5,8 @@
     , vendorSha256 ? lib.fakeSha256, version, meta, disableGoWorkspace ? false
     }:
     let
+      xmeta = meta;
+
       def = rec {
         pname = "${chain}";
 
@@ -47,7 +49,7 @@
           [ ]);
 
         meta = with lib; {
-          description = meta.name;
+          description = xmeta.name;
           homepage = "https://github.com/${srcRepo}.git";
           mainProgram = binary;
         };
@@ -80,6 +82,8 @@
       else
         fetchGit { inherit url ref; });
 
+      xmeta = meta;
+
       def = rec {
         inherit src version; # vendorSha256;
 
@@ -110,7 +114,7 @@
           [ ]);
 
         meta = with lib; {
-          description = meta.name;
+          description = xmeta.name;
           homepage = "https://github.com/${srcRepo}.git";
           mainProgram = binary;
         };
